@@ -1,5 +1,5 @@
-# clubmeet
-
+# Clubmeet
+  Clubmeet bir online kulüp platformu mobil uygulamasıdır.
 ## Kurulum
 
 * expo install
