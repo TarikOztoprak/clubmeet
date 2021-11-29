@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function HomeScreen() {
+
+
+export default function ClubsScreen() {
     return (
       <View style={styles.homescreen}>
         <View style={styles.banner}>Club Name</View>

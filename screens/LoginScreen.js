@@ -1,18 +1,19 @@
 import Logo from '../components/Logo'
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+
 function LoginScreen({ navigation }) {
     return (
       <View style={styles.container}>
         <View style= {styles.flex1}>
-          <Logo  />
+          <Logo/>
         </View>
         
         <View style= {styles.flex2}>
           <Button 
   
             title="Authentication"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() =>  navigation.setIsLogin(true)}
            
           />
         </View>

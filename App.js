@@ -4,19 +4,32 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [isLogin, setIsLogin] = React.useState(true);
   return (
     <NavigationContainer>
-    <Stack.Navigator screenOptions={{
-    headerShown: false
-  }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+    screenOptions={{
+      headerShown: false
+    }}>
+        {isLogin ? (
+        <>
+          <Stack.Screen name="Clubs" component={HomeScreen} />
+          <Stack.Screen name="Chat" component={HomeScreen} />
+          <Stack.Screen name="Voice" component={HomeScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen}/>
+          <Stack.Screen name="SignIn" component={LoginScreen} />
+        </>
+      )}
+    </Tab.Navigator>
   </NavigationContainer>
    
   );
