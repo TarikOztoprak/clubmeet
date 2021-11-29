@@ -13,7 +13,7 @@ function LoginScreen({ navigation }) {
           <TouchableOpacity style = {styles.btn}
             onPress={() =>  navigation.setIsLogin(true)}
            
-          > Authentication</TouchableOpacity>
+          ><Text>Authentication</Text></TouchableOpacity>
         </View>
       </View>
      
@@ -40,7 +40,7 @@ function LoginScreen({ navigation }) {
       justifyContent: 'center',
       alignItems: 'center',
       lineHeight: 30,
-      borderRadius: '100px',
+      borderRadius: 100,
       padding: 20
     }
   });

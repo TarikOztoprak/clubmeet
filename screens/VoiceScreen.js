@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     lineHeight: 30,
-    borderRadius: '100px',
+    borderRadius: 100,
     marginTop: 30
   }
 });
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
 export default function VoiceScreen() {
     return (
       <View style={styles.homescreen}>
-        <TouchableOpacity style={styles.banner}>Announcements</TouchableOpacity>
+        <TouchableOpacity style={styles.banner}><Text>Announcements</Text></TouchableOpacity>
         <Text>Members</Text>
         <Text>Voice Chat</Text>
-        <TouchableOpacity style={styles.banner}>Join</TouchableOpacity>
+        <TouchableOpacity style={styles.banner}><Text>Join</Text></TouchableOpacity>
       </View>
      
     );

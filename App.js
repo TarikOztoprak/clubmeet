@@ -24,7 +24,7 @@ export default function App() {
           <Stack.Screen name="Clubs" component={ClubsScreen} />
           <Stack.Screen name="Chat" component={HomeScreen} />
           <Stack.Screen name="Voice" component={VoiceScreen} />
-        </>
+        </> 
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginScreen}/>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   auth: {
     flex: 1,
     backgroundColor: '#F8E8E8',
-    borderRadius: '100px',
+    borderRadius: 100,
     width: 300
   },
   flex1: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: '30px'
+    lineHeight: 30
   }
 });
 

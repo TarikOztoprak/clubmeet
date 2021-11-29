@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Channel({children}) {
+export default function Channel(props) {
   return (
    
     <TouchableOpacity style={styles.container}>
-        {children}
+        {props.children}
     </TouchableOpacity>
    
   );

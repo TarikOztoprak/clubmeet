@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 
-import LoginScreen from "./LoginScreen"
 const styles = StyleSheet.create({
   homescreen: {
     flex: 1,
@@ -12,7 +10,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#ffffff',
-    borderRadius: '10px',
+    borderRadius: 10,
     borderColor: '#ffffff',
     height: 40,
     width: '96%',
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
 export default function HomeScreen() {
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}>Club Name</View>
+        <View style={styles.banner}><Text>Club Name</Text></View>
         <TextInput
           style={styles.btn}
         />

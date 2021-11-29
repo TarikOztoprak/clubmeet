@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Channel from '../components/Channel';
 
 const styles = StyleSheet.create({
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#ffffff',
-    borderRadius: '10px',
+    borderRadius: 10,
     borderColor: '#ffffff',
     height: 40,
     width: '96%',
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
 export default function ClubsScreen() {
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}>Clubs</View>
-        <TouchableOpacity style={styles.create}>+ Create Club</TouchableOpacity>
-        <Channel>Kitap Kulubü</Channel>
-        <Channel>Satranç Kulubü</Channel>
+        <View style={styles.banner}><Text>Clubs</Text></View>
+        <TouchableOpacity style={styles.create}><Text>+ Create Club</Text></TouchableOpacity>
+        <Channel><Text>Kitap Kulubü</Text></Channel>
+        <Channel><Text>Satranç Kulubü</Text></Channel>
       </View>
      
     );
