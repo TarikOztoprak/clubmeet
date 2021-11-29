@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-import LoginScreen from "./LoginScreen"
+
 const styles = StyleSheet.create({
   homescreen: {
     flex: 1,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: '#9BCCBA',
     alignItems: 'center'
   },
   btn:{
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   banner: {
-    position: 'absolute',
     top: 0,
     backgroundColor: '#EF3939',
     height: '10%',
@@ -30,8 +28,8 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: '30px',
-    borderRadius: 100,
+    lineHeight: 30,
+    borderRadius: '100px',
     marginTop: 30
   }
 });
@@ -39,10 +37,10 @@ const styles = StyleSheet.create({
 export default function VoiceScreen() {
     return (
       <View style={styles.homescreen}>
-        <TouchableOpacity style={styles.banner}>Duyurular</TouchableOpacity>
-        <TextInput
-          style={styles.btn}
-        />
+        <TouchableOpacity style={styles.banner}>Announcements</TouchableOpacity>
+        <Text>Members</Text>
+        <Text>Voice Chat</Text>
+        <TouchableOpacity style={styles.banner}>Join</TouchableOpacity>
       </View>
      
     );

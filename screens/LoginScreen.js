@@ -39,8 +39,8 @@ function LoginScreen({ navigation }) {
       color: 'white',
       justifyContent: 'center',
       alignItems: 'center',
-      lineHeight: '30px',
-      borderRadius: 100,
+      lineHeight: 30,
+      borderRadius: '100px',
       padding: 20
     }
   });

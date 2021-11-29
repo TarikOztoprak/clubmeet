@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
+import Channel from '../components/Channel';
 
-import LoginScreen from "./LoginScreen"
 const styles = StyleSheet.create({
   homescreen: {
     flex: 1,
-    backgroundColor: '#F8E8E8'
+    backgroundColor: '#9BCCBA',
+    alignItems: 'center'
   },
   btn:{
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#ffffff',
-    borderRadius: 10,
+    borderRadius: '10px',
     borderColor: '#ffffff',
     height: 40,
     width: '96%',
@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   banner: {
-    position: 'absolute',
     top: 0,
     backgroundColor: '#EF3939',
     height: '10%',
@@ -29,7 +28,19 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: '30px'
+    lineHeight: 30,
+    fontSize: 30
+  },
+  create:{
+    backgroundColor: '#EF3939',
+    color: '#fff',
+    borderRadius: 100,
+    width: '90%',
+    alignItems: 'center',
+    fontSize: 30,
+    marginTop: 25,
+    marginBottom: 25
+
   }
 });
 
@@ -38,10 +49,10 @@ const styles = StyleSheet.create({
 export default function ClubsScreen() {
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}>Club Name</View>
-        <TextInput
-          style={styles.btn}
-        />
+        <View style={styles.banner}>Clubs</View>
+        <TouchableOpacity style={styles.create}>+ Create Club</TouchableOpacity>
+        <Channel>Kitap Kulubü</Channel>
+        <Channel>Satranç Kulubü</Channel>
       </View>
      
     );

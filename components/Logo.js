@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: 135,
     height: 128,
     backgroundColor: '#EF3939',
-    borderRadius: 200,
+    borderRadius: '200px',
   },
   clubmeet:{
     fontFamily: 'Salsa',

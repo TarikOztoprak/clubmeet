@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     backgroundColor: '#ffffff',
-    borderRadius: 10,
+    borderRadius: '10px',
     borderColor: '#ffffff',
     height: 40,
     width: '96%',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: '30px'
+    lineHeight: 30
   }
 });
 
