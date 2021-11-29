@@ -1,6 +1,6 @@
 import Logo from '../components/Logo'
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
 
 function LoginScreen({ navigation }) {
     return (
@@ -10,12 +10,10 @@ function LoginScreen({ navigation }) {
         </View>
         
         <View style= {styles.flex2}>
-          <Button 
-  
-            title="Authentication"
+          <TouchableOpacity style = {styles.btn}
             onPress={() =>  navigation.setIsLogin(true)}
            
-          />
+          > Authentication</TouchableOpacity>
         </View>
       </View>
      
@@ -35,6 +33,15 @@ function LoginScreen({ navigation }) {
     },
     flex2: {
       flex: 2
+    },
+    btn: {
+      backgroundColor: '#EF3939',
+      color: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+      lineHeight: '30px',
+      borderRadius: 100,
+      padding: 20
     }
   });
 

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import LoginScreen from "./LoginScreen"
 const styles = StyleSheet.create({
   homescreen: {
     flex: 1,
-    backgroundColor: '#F8E8E8'
+    backgroundColor: '#F8E8E8',
+    alignItems: 'center'
   },
   btn:{
     position: 'absolute',
@@ -25,18 +26,20 @@ const styles = StyleSheet.create({
     top: 0,
     backgroundColor: '#EF3939',
     height: '10%',
-    width: '100%',
+    width: '70%',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: '30px'
+    lineHeight: '30px',
+    borderRadius: 100,
+    marginTop: 30
   }
 });
 
 export default function VoiceScreen() {
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}>Club Name</View>
+        <TouchableOpacity style={styles.banner}>Duyurular</TouchableOpacity>
         <TextInput
           style={styles.btn}
         />
