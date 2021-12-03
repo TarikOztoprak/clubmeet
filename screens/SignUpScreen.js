@@ -1,42 +1,46 @@
 import Logo from '../components/Logo'
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// Import the functions you need from the SDKs you need
 
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-
-function LoginScreen({ navigation }) {
+function SignUpScreen({ navigation }) {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const [login, setLogin] = useState('')
+    const [deneme, setDeneme] = useState('')
     const auth = getAuth();
     return (
       <View style={styles.container}>
         <View style= {styles.flex1}>
           <Logo/>
         </View>
-        <Text>{login}</Text>
-        <TextInput 
+        <Text>{deneme}</Text>
+        <View style= {styles.flex2}>
+          <TextInput 
             onChange= {(e) => setEmail(e.target.value)}
           />
           <TextInput 
             onChange= {(e) => setPass(e.target.value)}
           />
           <TouchableOpacity style = {styles.btn}
-            onPress={() =>  {signInWithEmailAndPassword(auth, email, pass)
+            onPress={() =>  {
+              createUserWithEmailAndPassword(auth, email, pass)
               .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                setLogin(email)
+                setDeneme('Kayıt Başarılı')
                 // ...
               })
               .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-              });}}
+                // ..
+              });
+            }}
            
           ><Text>Authentication</Text></TouchableOpacity>
+        </View>
       </View>
      
     );
@@ -67,4 +71,4 @@ function LoginScreen({ navigation }) {
     }
   });
 
-export default LoginScreen
+export default SignUpScreen
