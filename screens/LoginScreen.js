@@ -16,29 +16,47 @@ function LoginScreen({ navigation }) {
         <View style= {styles.flex1}>
           <Logo/>
         </View>
-        <Text>{login}</Text>
-        <TextInput 
-            onChange= {(e) => setEmail(e.target.value)}
+        
+        <Text style= {styles.txt}>{login}</Text>
+        <View style= {styles.flex2}>
+          <TextInput
+              style= {styles.input }
+              onChange= {(e) => setEmail(e.target.value)}
           />
-          <TextInput 
-            onChange= {(e) => setPass(e.target.value)}
+          <TextInput
+              secureTextEntry={true}
+              style= {styles.input }
+              onChange= {(e) => setPass(e.target.value)}
           />
+
           <TouchableOpacity style = {styles.btn}
             onPress={() =>  {signInWithEmailAndPassword(auth, email, pass)
               .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                setLogin(email)
+                setLogin('Login Succesfull')
+                setTimeout(() => {
+                  navigation.navigate('Clubs')
+                }, 1500);
+                
                 // ...
               })
               .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                setLogin(errorMessage)
               });}}
-           
-          ><Text>Authentication</Text></TouchableOpacity>
-      </View>
-     
+            ><Text style= {styles.txt}>LOGIN</Text></TouchableOpacity>
+
+            <TouchableOpacity 
+            style = {styles.btnSign}
+            onPress={() => navigation.navigate('Sign Up')}>
+            <Text style= {styles.txtSign}>SignUp</Text>
+            </TouchableOpacity>
+        </View>
+
+        
+        </View>     
     );
   }
 
@@ -63,7 +81,37 @@ function LoginScreen({ navigation }) {
       alignItems: 'center',
       lineHeight: 30,
       borderRadius: 100,
-      padding: 20
+      padding: 20,
+      marginTop:10
+    },
+    btnSign: {
+      backgroundColor: '#9BCCBA',
+      color: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+      lineHeight: 20,
+      borderRadius: 100,
+      padding: 10,
+      marginTop:10
+    },
+    input: {
+      backgroundColor: '#fff',
+      borderRadius: 100,
+      lineHeight:30,
+      marginTop:10,
+      paddingLeft: 10,
+      fontSize: 30,
+      width: 300,
+      maxWidth: 300
+     
+    },
+    txt: {
+      fontSize: 30,
+      color: '#ffffff'
+    },
+    txtSign: {
+      fontSize: 20,
+      color: '#ffffff'
     }
   });
 

@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 135,
-    height: 128,
+    width: 165,
+    height: 160,
     backgroundColor: '#EF3939',
     borderRadius: 200,
   },
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Salsa',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    fontSize: 23,
-    lineHeight: 28,
+    fontSize: 30,
+    lineHeight: 30,
     color: '#FFFFFF'
   }
 });

@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -32,29 +32,23 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
 
 export default function App() {
   const [isLogin, setIsLogin] = React.useState(false);
+ 
   return (
     <NavigationContainer>
-    <Tab.Navigator
+    <Stack.Navigator
     screenOptions={{
       headerShown: false
     }}>
-        {isLogin ? (
-        <>
-          <Stack.Screen name="Clubs" component={ClubsScreen} />
-          <Stack.Screen name="Chat" component={HomeScreen} />
-          <Stack.Screen name="Voice" component={VoiceScreen} />
-        </> 
-      ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen}/>
-          <Stack.Screen name="Sign Up" component={SignUpScreen} />
-        </>
-      )}
-    </Tab.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen}/>
+      <Stack.Screen name="Sign Up" component={SignUpScreen} />
+      <Stack.Screen name="Clubs" component={ClubsScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Voice" component={VoiceScreen} />
+    </Stack.Navigator>
   </NavigationContainer>
    
   );
