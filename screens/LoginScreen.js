@@ -4,13 +4,33 @@ import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'reac
 
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../firebase.js'
 
 
 function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
-    const [login, setLogin] = useState('')
-    const auth = getAuth();
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
+  const [login, setLogin] = useState('')
+  
+    const handleLogin = () => {
+      signInWithEmailAndPassword(auth, email, pass)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            setLogin('Login Succesfull')
+            setTimeout(() => {
+              navigation.navigate('Clubs')
+            }, 1500);
+            
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setLogin(errorCode)
+          });
+    }
+
     return (
       <View style={styles.container}>
         <View style= {styles.flex1}>
@@ -30,22 +50,7 @@ function LoginScreen({ navigation }) {
           />
 
           <TouchableOpacity style = {styles.btn}
-            onPress={() =>  {signInWithEmailAndPassword(auth, email, pass)
-              .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                setLogin('Login Succesfull')
-                setTimeout(() => {
-                  navigation.navigate('Clubs')
-                }, 1500);
-                
-                // ...
-              })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setLogin(errorMessage)
-              });}}
+            onPress={() => handleLogin()}
             ><Text style= {styles.txt}>LOGIN</Text></TouchableOpacity>
 
             <TouchableOpacity 
@@ -54,7 +59,7 @@ function LoginScreen({ navigation }) {
             <Text style= {styles.txtSign}>SignUp</Text>
             </TouchableOpacity>
         </View>
-
+ 
         
         </View>     
     );

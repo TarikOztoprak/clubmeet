@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-
+import BottomBar from '../components/BottomBar';
 
 const styles = StyleSheet.create({
   homescreen: {
@@ -34,13 +34,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function VoiceScreen() {
+export default function VoiceScreen({navigation}) {
     return (
       <View style={styles.homescreen}>
         <TouchableOpacity style={styles.banner}><Text>Announcements</Text></TouchableOpacity>
         <Text>Members</Text>
         <Text>Voice Chat</Text>
         <TouchableOpacity style={styles.banner}><Text>Join</Text></TouchableOpacity>
+        <BottomBar navigation = {navigation}/>
       </View>
      
     );

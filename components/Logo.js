@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     borderRadius: 200,
   },
   clubmeet:{
-    fontFamily: 'Salsa',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 30,

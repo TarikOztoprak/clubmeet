@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
-
+import BottomBar from '../components/BottomBar';
 const styles = StyleSheet.create({
   homescreen: {
     flex: 1,
@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   },
   btn:{
     position: 'absolute',
-    bottom: 0,
     backgroundColor: '#ffffff',
     borderRadius: 10,
     borderColor: '#ffffff',
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   banner: {
+    flex: 1,
     position: 'absolute',
     top: 0,
     backgroundColor: '#EF3939',
@@ -28,19 +28,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     lineHeight: 30
-  }
+  },
+  input: {
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  txt: {
+    fontSize: 30,
+    color: '#ffffff'
+  },
 });
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}><Text>Club Name</Text></View>
-        <TextInput
-          style={styles.btn}
-        />
+        <View style={styles.banner}><Text style={styles.txt}>Club Name</Text></View>
+        <View style= {styles.input}>
+          <TextInput
+            style={styles.btn}
+          />
+        </View>
+        <View style= {styles.input}>
+          <BottomBar navigation = {navigation}/>
+        </View>
       </View>
      
     );
 }
-
- 

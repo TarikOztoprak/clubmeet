@@ -1,6 +1,20 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Channel from '../components/Channel';
+import BottomBar from '../components/BottomBar'
+export default function ClubsScreen({navigation}) {
+    return (
+      <View style={styles.homescreen}>
+        <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
+        <TouchableOpacity style={styles.create}><Text style={styles.txt}>+ Create Club</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.create}><Text style={styles.txt}>+ Join Club</Text></TouchableOpacity>
+        <Channel><Text style={styles.txt}>Kitap Kulubü</Text></Channel>
+        <Channel><Text style={styles.txt}>Satranç Kulubü</Text></Channel>
+        <BottomBar navigation = {navigation}/>
+      </View>
+     
+    );
+}
 
 const styles = StyleSheet.create({
   homescreen: {
@@ -38,24 +52,14 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     fontSize: 30,
-    marginTop: 25,
-    marginBottom: 25
-
+    marginTop: 12,
+    marginBottom: 12
+ 
+  },
+  txt: {
+    fontSize: 30,
+    color: '#ffffff'
   }
 });
-
-
-
-export default function ClubsScreen() {
-    return (
-      <View style={styles.homescreen}>
-        <View style={styles.banner}><Text>Clubs</Text></View>
-        <TouchableOpacity style={styles.create}><Text>+ Create Club</Text></TouchableOpacity>
-        <Channel><Text>Kitap Kulubü</Text></Channel>
-        <Channel><Text>Satranç Kulubü</Text></Channel>
-      </View>
-     
-    );
-}
 
  
