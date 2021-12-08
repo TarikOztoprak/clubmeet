@@ -41,12 +41,17 @@ function LoginScreen({ navigation }) {
         <View style= {styles.flex2}>
           <TextInput
               style= {styles.input }
-              onChange= {(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              value={email}
+              onChangeText={text => setEmail(text)}
           />
           <TextInput
               secureTextEntry={true}
+              value={pass}
+              placeholder="Password"
+              onChangeText={text => setPass(text)}
               style= {styles.input }
-              onChange= {(e) => setPass(e.target.value)}
+             
           />
 
           <TouchableOpacity style = {styles.btn}
