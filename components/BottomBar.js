@@ -24,7 +24,7 @@ function BottomBar({navigation}) {
             onPress={()=> navigation.navigate('Voice')}
             >
                 <Text style = {styles.txt}>
-                    Voice Chat
+                    Voice
                 </Text>
             </TouchableOpacity>
         </View>
@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'flex-end',
-        width: '100%',
-        height: 50
+        width: '100%'
     },
     btn:{
         flex: 1,

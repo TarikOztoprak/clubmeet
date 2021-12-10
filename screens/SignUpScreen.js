@@ -3,13 +3,13 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
-
+import {auth} from '../firebase.js'
 
 function SignUpScreen({ navigation }) {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const [signup, setSignup] = useState('')
-    const auth = getAuth();
+  
     return (
       <View style={styles.container}>
         <View style= {styles.flex1}>
@@ -19,12 +19,16 @@ function SignUpScreen({ navigation }) {
         <View style= {styles.flex2}>
           <TextInput 
             style= {styles.input }
-            onChange= {(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
           <TextInput
-            secureTextEntry={true}
-            style= {styles.input } 
-            onChange= {(e) => setPass(e.target.value)}
+           secureTextEntry={true}
+           value={pass}
+           placeholder="Password"
+           onChangeText={text => setPass(text)}
+           style= {styles.input}
           />
           <TouchableOpacity style = {styles.btn}
             onPress={() =>  {
@@ -33,12 +37,15 @@ function SignUpScreen({ navigation }) {
                 // Signed in 
                 const user = userCredential.user;
                 setSignup('SignUp Succesfull')
+                setTimeout(() => {
+                  navigation.navigate('Login')
+                }, 1500);
                 // ...
               })
               .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                setSignup(errorMessage)
+                setSignup(errorCode)
                 // ..
               });
             }}
@@ -69,16 +76,17 @@ function SignUpScreen({ navigation }) {
       color: '#fff',
       justifyContent: 'center',
       alignItems: 'center',
-      lineHeight: 30,
-      borderRadius: 100,
-      padding: 20,
+      lineHeight: 25,
+      borderRadius: 10,
+      padding: 10,
       marginTop:10
     },
     input: {
       backgroundColor: '#fff',
       fontSize: 30,
-      borderRadius: 100,
+      borderRadius: 10,
       lineHeight:30,
+      paddingRight: 5,
       marginTop:10,
       paddingLeft: 10,
       width: 300

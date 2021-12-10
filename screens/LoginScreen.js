@@ -51,7 +51,6 @@ function LoginScreen({ navigation }) {
               placeholder="Password"
               onChangeText={text => setPass(text)}
               style= {styles.input }
-             
           />
 
           <TouchableOpacity style = {styles.btn}
@@ -89,9 +88,9 @@ function LoginScreen({ navigation }) {
       color: 'white',
       justifyContent: 'center',
       alignItems: 'center',
-      lineHeight: 30,
-      borderRadius: 100,
-      padding: 20,
+      lineHeight: 25,
+      borderRadius: 10,
+      padding: 10,
       marginTop:10
     },
     btnSign: {
@@ -106,10 +105,11 @@ function LoginScreen({ navigation }) {
     },
     input: {
       backgroundColor: '#fff',
-      borderRadius: 100,
+      borderRadius: 10,
       lineHeight:30,
       marginTop:10,
       paddingLeft: 10,
+      paddingRight: 5,
       fontSize: 30,
       width: 300,
       maxWidth: 300
