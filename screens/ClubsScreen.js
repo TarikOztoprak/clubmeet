@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import Channel from '../components/Channel';
 import BottomBar from '../components/BottomBar'
 import { auth } from '../firebase';
 import { getFirestore } from "firebase/firestore"
-import { collection, addDoc, getDocs } from "firebase/firestore"; 
-import { doc, getDoc } from "firebase/firestore";
+import { collection,query, where, addDoc, getDocs, doc} from "firebase/firestore"; 
 
 function createCode() {
   let code = '';
@@ -28,9 +27,19 @@ async function CreateClub(params) {
   }
 }
 
+async function getData(){
+  // , where("name", "==", "kitap")
+  const q = query(collection(db, "clubs"));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+     console.log(doc.data().name);
+  });
+}
+
 
 export default function ClubsScreen({navigation}) {
     const [cClub, setcClub] = useState('');
+    const [createText, setCreateText] = useState('');
     return (
       <View style={styles.homescreen}>
         <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
@@ -38,12 +47,20 @@ export default function ClubsScreen({navigation}) {
         <Text>{auth.currentUser?.email}</Text>
         <Text>{auth.currentUser?.uid}</Text>
 
+        <Text>{createText}</Text>
         <View style= {styles.row}>
-          <TextInput style= {styles.input}
+          <TextInput id='createInput' style= {styles.input}
               placeholder="Club Name"
+              value= {cClub}
               onChangeText={text => setcClub(text)}
           />
-          <TouchableOpacity style={styles.create} onPress={()=> CreateClub(cClub)}>
+          <TouchableOpacity style={styles.create} 
+            onPress={()=>{
+              CreateClub(cClub)
+              setCreateText('Kulüp Oluşturuldu')
+              setcClub("")
+            }
+            }>
             <Text style={styles.txt}>Create</Text>
           </TouchableOpacity>
         </View>
@@ -52,11 +69,13 @@ export default function ClubsScreen({navigation}) {
           <TextInput style= {styles.input}
               placeholder="Club Code"
           />
-          <TouchableOpacity style={styles.create} onPress={()=> console.log('gelişcek')}><Text style={styles.txt}>Join</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.create} onPress={()=> getData()}><Text style={styles.txt}>Join</Text></TouchableOpacity>
         </View>
         
         <Channel><Text style={styles.txt}>Kitap Kulubü</Text></Channel>
-
+        
+       
+     
         <BottomBar navigation = {navigation}/>
       </View>
      
@@ -119,5 +138,3 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
 });
-
- 
