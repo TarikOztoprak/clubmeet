@@ -9,7 +9,7 @@ import { collection,query, where, addDoc, getDocs, doc} from "firebase/firestore
 function createCode() {
   let code = '';
   for (let i = 0; i < 9; i++) {
-    let x = Math.round(Math.random() * 10)
+    let x = Math.round(Math.random() * 9)
     code += x
   }
   return code
@@ -92,18 +92,12 @@ export default function ClubsScreen({navigation}) {
             data={data}
             keyExtractor={({ item }, index) => index}
             renderItem={({ item }, index) => (
-              <Channel key={index} onPress={() => navigation.navigate('Home')}>
-                <TouchableOpacity>
-                 <Text style={styles.txt}>
-                  {item.name}
-                 </Text>
-                </TouchableOpacity>
-              </Channel>
+              <Channel key={index} onPress={() => navigation.navigate('Home')}
+                clubname={item.name} navigation={navigation} clubcode = {item.code}
+              />
+               
             )}
         />
-        </View>
-        <View style={styles.flex1}>
-          <BottomBar navigation = {navigation}/>
         </View>
       </View>
      
@@ -115,18 +109,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#9BCCBA',
     alignItems: 'center'
-  },
-  btn:{
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
-    borderColor: '#ffffff',
-    height: 40,
-    width: '96%',
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
   banner: {
     backgroundColor: '#EF3939',
@@ -170,12 +152,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
   },
-  flex1:{
-    flex: 1,
-    justifyContent:'center',
-    alignItems: 'center',
-    width: '100%'
-  },
   flex3:{
     flex:3,
     justifyContent:'center',
@@ -184,6 +160,7 @@ const styles = StyleSheet.create({
   },
   flex6:{
     flex: 6,
-    width: '100%'
+    width: '100%',
+  
   }
 });
