@@ -14,11 +14,12 @@ export default function Channel(props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    width: '80%',
+    width: '100%',
     borderRadius: 10,
     backgroundColor: '#ff0000',
     fontSize: 26,
-    marginBottom: 5
+    marginTop: 15,
+    
   }
   
 });

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList} from 'react-native';
 import Channel from '../components/Channel';
 import BottomBar from '../components/BottomBar'
 import { auth } from '../firebase';
@@ -27,56 +27,84 @@ async function CreateClub(params) {
   }
 }
 
-async function getData(){
-  // , where("name", "==", "kitap")
-  const q = query(collection(db, "clubs"));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-     console.log(doc.data().name);
-  });
-}
+
 
 
 export default function ClubsScreen({navigation}) {
     const [cClub, setcClub] = useState('');
     const [createText, setCreateText] = useState('');
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getData()
+        console.log(data)
+    }, []);
+
+    async function getData(){
+      // , where("name", "==", "kitap")
+      let s = []
+      const q = query(collection(db, "clubs"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+          s = [...s,doc.data()];
+      });
+      setData(s)
+    }
+
     return (
       <View style={styles.homescreen}>
-        <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
-    
-        <Text>{auth.currentUser?.email}</Text>
-        <Text>{auth.currentUser?.uid}</Text>
+        <View style={styles.flex3}>
+          <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
+      
+          {/* <Text>{auth.currentUser?.email}</Text>
+          <Text>{auth.currentUser?.uid}</Text> */}
 
-        <Text>{createText}</Text>
-        <View style= {styles.row}>
-          <TextInput id='createInput' style= {styles.input}
-              placeholder="Club Name"
-              value= {cClub}
-              onChangeText={text => setcClub(text)}
-          />
-          <TouchableOpacity style={styles.create} 
-            onPress={()=>{
-              CreateClub(cClub)
-              setCreateText('Kulüp Oluşturuldu')
-              setcClub("")
-            }
-            }>
-            <Text style={styles.txt}>Create</Text>
-          </TouchableOpacity>
+          <Text>{createText}</Text>
+          <View style= {styles.row}>
+            <TextInput id='createInput' style= {styles.input}
+                placeholder="Club Name"
+                value= {cClub}
+                onChangeText={text => setcClub(text)}
+            />
+            <TouchableOpacity style={styles.create} 
+              onPress={()=>{
+                CreateClub(cClub)
+                setCreateText('Kulüp Oluşturuldu')
+                setcClub("")
+              }
+              }>
+              <Text style={styles.txt}>Create</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <View style= {styles.row}>
+            <TextInput style= {styles.input}
+                placeholder="Club Code"
+            />
+            <TouchableOpacity style={styles.create} onPress={()=> getData()}><Text style={styles.txt}>Join</Text></TouchableOpacity>
+          </View>
+
         </View>
         
-        <View style= {styles.row}>
-          <TextInput style= {styles.input}
-              placeholder="Club Code"
-          />
-          <TouchableOpacity style={styles.create} onPress={()=> getData()}><Text style={styles.txt}>Join</Text></TouchableOpacity>
+        <View style={styles.flex6}>
+        <FlatList
+            style = {styles.fltlist}
+            data={data}
+            keyExtractor={({ item }, index) => index}
+            renderItem={({ item }, index) => (
+              <Channel key={index} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity>
+                 <Text style={styles.txt}>
+                  {item.name}
+                 </Text>
+                </TouchableOpacity>
+              </Channel>
+            )}
+        />
         </View>
-        
-        <Channel><Text style={styles.txt}>Kitap Kulubü</Text></Channel>
-        
-       
-     
-        <BottomBar navigation = {navigation}/>
+        <View style={styles.flex1}>
+          <BottomBar navigation = {navigation}/>
+        </View>
       </View>
      
     );
@@ -101,15 +129,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   banner: {
-    top: 0,
     backgroundColor: '#EF3939',
-    height: '10%',
     width: '100%',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     lineHeight: 30,
-    fontSize: 30
+    fontSize: 30,
+
   },
   create:{
     flex: 1,
@@ -137,4 +164,26 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   },
+  fltlist:{
+    width: '90%',
+    margin: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  flex1:{
+    flex: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    width: '100%'
+  },
+  flex3:{
+    flex:3,
+    justifyContent:'center',
+    alignItems: 'center',
+    width: '100%'
+  },
+  flex6:{
+    flex: 6,
+    width: '100%'
+  }
 });

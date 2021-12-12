@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'flex-end',
+        justifyContent: 'center',
         width: '100%'
     },
     btn:{
