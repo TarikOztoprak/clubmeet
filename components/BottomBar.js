@@ -11,6 +11,7 @@ function BottomBar({navigation}) {
                     Clubs
                 </Text>
             </TouchableOpacity>
+            
             <TouchableOpacity
             style={styles.btn}
             onPress={()=> navigation.navigate('Home')}
@@ -36,15 +37,15 @@ export default BottomBar
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        width: '100%'
+        width: '100%',
+        bottom: 0
     },
     btn:{
         flex: 1,
         backgroundColor: '#EF3939',
-        textAlign: 'center'
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10
     },
     txt:
     {

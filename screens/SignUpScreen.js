@@ -4,6 +4,21 @@ import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'reac
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import {auth} from '../firebase.js'
+// import { getFirestore } from "firebase/firestore"
+// import { collection,query, setDoc, addDoc, getDocs, doc, arrayUnion, updateDoc} from "firebase/firestore"; 
+// const db = getFirestore();
+
+// async function setDatabase() {
+//     try {
+//       await setDoc(doc(db, "users", auth.currentUser?.email), {
+//         name: auth.currentUser?.email,
+//         clubs: []
+//       });
+//     } catch (e) {
+//       console.error("Error adding document: ", e);
+//     }
+//   }
+
 
 function SignUpScreen({ navigation }) {
     const [email, setEmail] = useState('')
@@ -36,6 +51,7 @@ function SignUpScreen({ navigation }) {
               .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                // setDatabase();
                 setSignup('SignUp Succesfull')
                 setTimeout(() => {
                   navigation.navigate('Login')

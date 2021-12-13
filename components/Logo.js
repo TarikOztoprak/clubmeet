@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     height: 160,
     backgroundColor: '#EF3939',
     borderRadius: 200,
+    marginBottom: 50,
+    bottom: 0
   },
   clubmeet:{
     fontStyle: 'normal',

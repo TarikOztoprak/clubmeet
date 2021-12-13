@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList} from 'react-native';
 import Channel from '../components/Channel';
-import BottomBar from '../components/BottomBar'
 import { auth } from '../firebase';
 import { getFirestore } from "firebase/firestore"
-import { collection,query, where, addDoc, getDocs, doc} from "firebase/firestore"; 
+import { collection,query, setDoc, getDocs, doc, arrayUnion, updateDoc} from "firebase/firestore"; 
 
 function createCode() {
   let code = '';
@@ -15,26 +14,37 @@ function createCode() {
   return code
 }
 const db = getFirestore();
+
 async function CreateClub(params) {
   try {
-    const docRef = await addDoc(collection(db, "clubs"), {
+    let kod = createCode()
+    await setDoc(doc(db, "clubs", kod), {
       name: params,
-      code: createCode()
+      code: kod,
+      user: [auth.currentUser?.email]
     });
-    console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-
-
+async function joinClub(params) {
+  try {
+    const ref = doc(db, "clubs", params);
+    await updateDoc(ref, {
+      user: arrayUnion(auth.currentUser?.email)
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 export default function ClubsScreen({navigation}) {
     const [cClub, setcClub] = useState('');
+    const [jClub, setjClub] = useState('');
     const [createText, setCreateText] = useState('');
     const [data, setData] = useState([]);
-
+  
     useEffect(() => {
         getData()
         console.log(data)
@@ -46,7 +56,11 @@ export default function ClubsScreen({navigation}) {
       const q = query(collection(db, "clubs"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-          s = [...s,doc.data()];
+          doc.data().user.forEach((i) =>{
+            console.log(i)
+            if(i == auth.currentUser?.email)
+              s = [...s,doc.data()];
+          })
       });
       setData(s)
     }
@@ -71,6 +85,7 @@ export default function ClubsScreen({navigation}) {
                 CreateClub(cClub)
                 setCreateText('Kulüp Oluşturuldu')
                 setcClub("")
+                getData()
               }
               }>
               <Text style={styles.txt}>Create</Text>
@@ -80,8 +95,12 @@ export default function ClubsScreen({navigation}) {
           <View style= {styles.row}>
             <TextInput style= {styles.input}
                 placeholder="Club Code"
+                value= {jClub}
+                onChangeText={text => setjClub(text)}
             />
-            <TouchableOpacity style={styles.create} onPress={()=> getData()}><Text style={styles.txt}>Join</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.create}
+            onPress={()=> joinClub(jClub)}
+            ><Text style={styles.txt}>Join</Text></TouchableOpacity>
           </View>
 
         </View>
@@ -92,10 +111,9 @@ export default function ClubsScreen({navigation}) {
             data={data}
             keyExtractor={({ item }, index) => index}
             renderItem={({ item }, index) => (
-              <Channel key={index} onPress={() => navigation.navigate('Home')}
-                clubname={item.name} navigation={navigation} clubcode = {item.code}
-              />
-               
+                <Channel key={index} onPress={() => navigation.navigate('Home')}
+                  clubname={item.name} navigation={navigation} clubcode = {item.code}
+                />
             )}
         />
         </View>
@@ -118,7 +136,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     lineHeight: 30,
     fontSize: 30,
-
+    paddingTop: 30,
+    paddingBottom: 10
   },
   create:{
     flex: 1,
@@ -149,18 +168,15 @@ const styles = StyleSheet.create({
   fltlist:{
     width: '90%',
     margin: 20,
-    backgroundColor: '#fff',
     borderRadius: 10,
   },
   flex3:{
     flex:3,
-    justifyContent:'center',
     alignItems: 'center',
     width: '100%'
   },
   flex6:{
     flex: 6,
     width: '100%',
-  
   }
 });
