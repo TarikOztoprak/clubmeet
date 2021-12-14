@@ -1,4 +1,4 @@
-import React, {useState, getDate} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import BottomBar from '../components/BottomBar';
 import ChatItem from '../components/ChatItem';
@@ -11,9 +11,13 @@ export default function HomeScreen({route, navigation}) {
     const { name, code } = route.params;
     const [message, setMessage] = useState([])
     const [sendMessage, setSendMessage] = useState("")
-    const unsub = onSnapshot(doc(db, "clubs", code), (doc) => {
-      setMessage(doc.data().message);
-    });
+   
+
+    useEffect(() => {
+      const unsub = onSnapshot(doc(db, "clubs", code), { includeMetadataChanges: true },  (doc) => {
+        setMessage(doc.data().message.reverse());
+      });
+    }, []);
 
     async function createMessage(params) {
       try {
@@ -34,8 +38,8 @@ export default function HomeScreen({route, navigation}) {
         
         <View style={styles.banner}><Text style={styles.txt}>{name}</Text></View>
         <View  style={styles.chat}>
-
           <FlatList
+              inverted
               data={message}
               keyExtractor={({ item }, index) => index}
               renderItem={({ item }, index) => 
@@ -53,7 +57,11 @@ export default function HomeScreen({route, navigation}) {
             value={sendMessage}
           />
           <TouchableOpacity style={styles.send}
-            onPress={() => createMessage(sendMessage)}
+            onPress={() => {
+              createMessage(sendMessage)
+              setSendMessage("")
+              }
+            }
           >
             <Text style={styles.txt}>↑</Text>
           </TouchableOpacity>

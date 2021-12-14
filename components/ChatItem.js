@@ -1,5 +1,6 @@
 import React, { Children } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ViewBase } from 'react-native';
+import { auth } from '../firebase';
 
 export default function ChatItem(props) {
   let chat = props.message.split(" ");
@@ -7,9 +8,13 @@ export default function ChatItem(props) {
   const time = chat[1];
   chat.shift()
   chat.shift()
-  const message = chat
+  let message = "";
+  for (let i = 0; i < chat.length; i++) {
+    message+= chat[i]+ " "
+    
+  }
   return (
-    <View style={styles.container}>
+    <View style={[user == auth.currentUser?.email ?  styles.container2: styles.container] }>
         <View style={styles.row}>
             <Text style={styles.name}>
                     {user}
@@ -18,9 +23,12 @@ export default function ChatItem(props) {
                     {time}
             </Text>
         </View>
-        <Text style={styles.txt}>
-                    {message}
-        </Text>
+        <View style={[user == auth.currentUser?.email ?  styles.right: styles.left]}>
+          <Text style={styles.txt}>
+              {message}
+          </Text>
+        </View>
+        
    
     </View>
    
@@ -31,6 +39,14 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     backgroundColor: 'white',
+    marginBottom: 4,
+    marginTop: 4,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  container2: {
+    borderRadius: 10,
+    backgroundColor: '#ffff90',
     marginBottom: 4,
     marginTop: 4,
     paddingLeft: 10,
@@ -47,6 +63,12 @@ const styles = StyleSheet.create({
   row:{
       flexDirection: 'row',
       justifyContent: 'space-between'
+  },
+  right:{
+    alignItems: 'flex-end'
+  },
+  left:{
+    alignItems: 'flex-start'
   }
   
 });

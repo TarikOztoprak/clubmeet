@@ -18,9 +18,9 @@ function LoginScreen({ navigation }) {
             // Signed in 
             const user = userCredential.user;
             setLogin('Login Succesfull')
-            setTimeout(() => {
-              navigation.navigate('Clubs')
-            }, 1500);
+           
+            navigation.navigate('Clubs')
+          
             
             // ...
           })

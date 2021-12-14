@@ -53,9 +53,9 @@ function SignUpScreen({ navigation }) {
                 const user = userCredential.user;
                 // setDatabase();
                 setSignup('SignUp Succesfull')
-                setTimeout(() => {
-                  navigation.navigate('Login')
-                }, 1500);
+                
+                navigation.navigate('Login')
+              
                 // ...
               })
               .catch((error) => {

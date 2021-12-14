@@ -100,13 +100,15 @@ export default function ClubsScreen({navigation}) {
                 value= {jClub}
                 onChangeText={text => {
                   setjClub(text)
-                  setCreateText('Joined the Club.')
-                  getData()
                 }                
                 }
             />
             <TouchableOpacity style={styles.create}
-            onPress={()=> joinClub(jClub)}
+            onPress={()=> {
+              joinClub(jClub)
+              setCreateText('Joined the Club.')
+              getData()}
+            }
             ><Text style={styles.txt}>Join</Text></TouchableOpacity>
           </View>
 
