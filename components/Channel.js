@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ViewBase } from 'react-native
 export default function Channel(props) {
   return (
    
-    <TouchableOpacity onPress={() => props.navigation.navigate('Home', {name: props.clubname})} style={styles.container}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('Home', {name: props.clubname, code: props.clubcode})} style={styles.container}>
         <View style={styles.logoContent}>
           <View style={styles.logo}>
             <Text style={styles.logotxt}>
@@ -12,7 +12,7 @@ export default function Channel(props) {
             </Text>
           </View>
         </View>
-       
+
         <View style={styles.content}>
           <Text style={styles.txt}>
             {props.clubname}

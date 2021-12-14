@@ -1,29 +1,66 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import React, {useState, getDate} from 'react';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import BottomBar from '../components/BottomBar';
+import ChatItem from '../components/ChatItem';
+import { auth } from '../firebase';
+import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
+
+const db = getFirestore();
 
 export default function HomeScreen({route, navigation}) {
-    const { name } = route.params;
+    const { name, code } = route.params;
+    const [message, setMessage] = useState([])
+    const [sendMessage, setSendMessage] = useState("")
+    const unsub = onSnapshot(doc(db, "clubs", code), (doc) => {
+      setMessage(doc.data().message);
+    });
+
+    async function createMessage(params) {
+      try {
+        const ref = doc(db, "clubs", code);
+        var today = new Date()
+        await updateDoc(ref, {
+          message: arrayUnion(auth.currentUser?.email + " " + today.getDate() + "." + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + today.getHours() + ":" + today.getMinutes() + " " + params
+          )
+        });
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+    
+
     return (
       <View style={styles.homescreen}>
         
         <View style={styles.banner}><Text style={styles.txt}>{name}</Text></View>
-        
-        <View style={styles.chat}></View>
+        <View  style={styles.chat}>
+
+          <FlatList
+              data={message}
+              keyExtractor={({ item }, index) => index}
+              renderItem={({ item }, index) => 
+                  (<ChatItem message = {item}/>)
+              }
+          />
+
+        </View>
         
         <View style= {styles.input}>
           <TextInput
+            onChangeText={text => setSendMessage(text)}
             style={styles.btn}
+            placeholder='Message'
+            value={sendMessage}
           />
-          <TouchableOpacity style={styles.send}>
+          <TouchableOpacity style={styles.send}
+            onPress={() => createMessage(sendMessage)}
+          >
             <Text style={styles.txt}>↑</Text>
           </TouchableOpacity>
         </View>
  
         <BottomBar styles={styles.input} navigation = {navigation}/>
-   
       </View>
-     
     );
 }
 

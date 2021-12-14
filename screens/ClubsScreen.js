@@ -21,7 +21,9 @@ async function CreateClub(params) {
     await setDoc(doc(db, "clubs", kod), {
       name: params,
       code: kod,
-      user: [auth.currentUser?.email]
+      user: [auth.currentUser?.email],
+      messages: [],
+      duyuru: []
     });
   } catch (e) {
     console.error("Error adding document: ", e);
@@ -83,7 +85,7 @@ export default function ClubsScreen({navigation}) {
             <TouchableOpacity style={styles.create} 
               onPress={()=>{
                 CreateClub(cClub)
-                setCreateText('Kulüp Oluşturuldu')
+                setCreateText('The Club was Created.')
                 setcClub("")
                 getData()
               }
@@ -96,7 +98,12 @@ export default function ClubsScreen({navigation}) {
             <TextInput style= {styles.input}
                 placeholder="Club Code"
                 value= {jClub}
-                onChangeText={text => setjClub(text)}
+                onChangeText={text => {
+                  setjClub(text)
+                  setCreateText('Joined the Club.')
+                  getData()
+                }                
+                }
             />
             <TouchableOpacity style={styles.create}
             onPress={()=> joinClub(jClub)}
@@ -112,7 +119,7 @@ export default function ClubsScreen({navigation}) {
             keyExtractor={({ item }, index) => index}
             renderItem={({ item }, index) => (
                 <Channel key={index} onPress={() => navigation.navigate('Home')}
-                  clubname={item.name} navigation={navigation} clubcode = {item.code}
+                  clubname={item.name}  clubcode = {item.code} navigation={navigation}
                 />
             )}
         />
