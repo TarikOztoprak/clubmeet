@@ -67,7 +67,7 @@ export default function HomeScreen({route, navigation}) {
           </TouchableOpacity>
         </View>
  
-        <BottomBar styles={styles.input} navigation = {navigation}/>
+        <BottomBar name={name} code={code} styles={styles.input} navigation = {navigation}/>
       </View>
     );
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator} from 'react-native';
 import Channel from '../components/Channel';
 import { auth } from '../firebase';
 import { getFirestore } from "firebase/firestore"
@@ -46,7 +46,8 @@ export default function ClubsScreen({navigation}) {
     const [jClub, setjClub] = useState('');
     const [createText, setCreateText] = useState('');
     const [data, setData] = useState([]);
-  
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         getData()
         console.log(data)
@@ -65,15 +66,13 @@ export default function ClubsScreen({navigation}) {
           })
       });
       setData(s)
+      setLoading(false)
     }
 
     return (
       <View style={styles.homescreen}>
         <View style={styles.flex3}>
           <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
-      
-          {/* <Text>{auth.currentUser?.email}</Text>
-          <Text>{auth.currentUser?.uid}</Text> */}
 
           <Text>{createText}</Text>
           <View style= {styles.row}>
@@ -115,6 +114,14 @@ export default function ClubsScreen({navigation}) {
         </View>
         
         <View style={styles.flex6}>
+        {loading ? (
+          <ActivityIndicator
+            visible={loading}
+            textContent={'Loading...'}
+            size="large" 
+            color="#ff0000"
+          />
+        ) : (
         <FlatList
             style = {styles.fltlist}
             data={data}
@@ -125,6 +132,7 @@ export default function ClubsScreen({navigation}) {
                 />
             )}
         />
+        )}
         </View>
       </View>
      

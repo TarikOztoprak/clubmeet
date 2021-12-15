@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-function BottomBar({navigation}) {
+function BottomBar({name,code, navigation}) {
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -14,7 +14,7 @@ function BottomBar({navigation}) {
             
             <TouchableOpacity
             style={styles.btn}
-            onPress={()=> navigation.navigate('Home')}
+            onPress={()=> navigation.navigate('Home', {name: name, code: code})}
             >
                 <Text style = {styles.txt}>
                     Chat
@@ -22,7 +22,7 @@ function BottomBar({navigation}) {
             </TouchableOpacity>
             <TouchableOpacity
             style={styles.btn}
-            onPress={()=> navigation.navigate('Voice')}
+            onPress={()=> navigation.navigate('Voice', {name: name, code: code})}
             >
                 <Text style = {styles.txt}>
                     Voice

@@ -1,12 +1,58 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import BottomBar from '../components/BottomBar';
 
+
+
+export default function VoiceScreen({route, navigation}) {
+    const { name, code } = route.params;
+    return (
+      <View style={styles.container}>
+        <View style={styles.flex1}>
+          <TouchableOpacity style={styles.banner}>
+            <Text style={styles.txt}>Announcements</Text>
+          </TouchableOpacity>
+          
+        </View>
+
+        <View style={styles.flex3}>
+          <Text style={styles.txt}>{name} Members</Text>
+          <FlatList style = {{backgroundColor: 'white', width: '100%'}}/>
+        </View>
+
+        <View style={styles.flex3}>
+          <Text style={styles.txt}>{name} Voice Chat</Text>
+          <FlatList style = {{backgroundColor: 'white'}}/>
+        </View>
+        <View style={styles.flex1row}>
+          <View style={styles.flex3}>
+            <TouchableOpacity style={styles.banner}><Text style={styles.txt}>Join</Text></TouchableOpacity>
+          </View>
+
+          <View style={styles.flex1}>
+            <TouchableOpacity style={styles.mic}>
+              <Image style={styles.tinyLogo} source={{uri: 'https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png'}}/>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.flex1}>
+            <TouchableOpacity style={styles.mic}>
+              <Image style={styles.tinyLogo} source={{uri: 'https://www.freeiconspng.com/uploads/sound-off-music-mute-off-sound-speaker-volume-icon-16.png'}}/>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <BottomBar name={name} code={code} styles={styles.input} navigation = {navigation}/>
+      </View>
+     
+    );
+}
+
 const styles = StyleSheet.create({
-  homescreen: {
+    container: {
     flex: 1,
     backgroundColor: '#9BCCBA',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%'
   },
   btn:{
     position: 'absolute',
@@ -21,30 +67,46 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   banner: {
-    top: 0,
     backgroundColor: '#EF3939',
-    height: '10%',
-    width: '70%',
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    lineHeight: 30,
-    borderRadius: 100,
-    marginTop: 30
+    padding: 10,
+    borderRadius: 10
+  },
+  txt:{
+    fontSize: 25,
+    color: 'white'
+  },
+  flex1:{
+    flex: 1,
+    justifyContent: 'center'
+  },
+  flex1row:{
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '90%'
+  },
+  flex3:{
+    flex: 3
+  },
+  tinyLogo:{
+    width: 45,
+    height: 45,
+    resizeMode: 'stretch'
+  },
+  mic:{
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    marginLeft: 10,
+    borderRadius: 30,
+    borderColor: 'gray',
+    borderWidth: 2
   }
 });
-
-export default function VoiceScreen({navigation}) {
-    return (
-      <View style={styles.homescreen}>
-        <TouchableOpacity style={styles.banner}><Text>Announcements</Text></TouchableOpacity>
-        <Text>Members</Text>
-        <Text>Voice Chat</Text>
-        <TouchableOpacity style={styles.banner}><Text>Join</Text></TouchableOpacity>
-        <BottomBar navigation = {navigation}/>
-      </View>
-     
-    );
-}
 
  
