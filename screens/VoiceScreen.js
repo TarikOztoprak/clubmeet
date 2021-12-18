@@ -1,12 +1,22 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import BottomBar from '../components/BottomBar';
+import { auth } from '../firebase';
+import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
 
+const db = getFirestore();
 
 
 export default function VoiceScreen({route, navigation}) {
     const { name, code } = route.params;
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+      const unsub = onSnapshot(doc(db, "clubs", code), { includeMetadataChanges: true },  (doc) => {
+        setUsers(doc.data().user);
+      });
+    }, []);
     return (
+      
       <View style={styles.container}>
         <View style={styles.flex1}>
           <TouchableOpacity style={styles.banner}>
@@ -17,7 +27,12 @@ export default function VoiceScreen({route, navigation}) {
 
         <View style={styles.flex3}>
           <Text style={styles.txt}>{name} Members</Text>
-          <FlatList style = {{backgroundColor: 'white', width: '100%'}}/>
+          <FlatList style = {{backgroundColor: 'white', width: '100%'}}
+             data={users}
+             keyExtractor={({ item }, index) => index}
+             renderItem={({ item }, index) => 
+              (<Text>{item}</Text>)
+          }/>
         </View>
 
         <View style={styles.flex3}>
