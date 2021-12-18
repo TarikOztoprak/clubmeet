@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   flex3:{
     flex: 3,
-    width: '100%'
+    width: '90%'
   },
   tinyLogo:{
     width: 45,

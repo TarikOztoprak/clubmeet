@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     lineHeight: 30,
-    fontSize: 30,
     paddingTop: 30
   },
   input: {
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     flex: 1,
-    fontSize: 30,
+    fontSize: 22,
     color: '#ffffff'
   },
   chat: {
