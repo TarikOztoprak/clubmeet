@@ -23,7 +23,7 @@ async function CreateClub(params) {
       code: kod,
       user: [auth.currentUser?.email],
       messages: [],
-      duyuru: []
+      announcemenets: []
     });
   } catch (e) {
     console.error("Error adding document: ", e);

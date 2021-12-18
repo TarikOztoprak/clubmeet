@@ -7,6 +7,7 @@ import ClubsScreen from './screens/ClubsScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import VoiceScreen from './screens/VoiceScreen';
+import Announcements from './screens/Announcements';
 const Stack = createNativeStackNavigator();
 
 
@@ -32,6 +33,7 @@ export default function App() {
       <Stack.Screen name="Clubs" component={ClubsScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Voice" component={VoiceScreen} />
+      <Stack.Screen name="Announcements" component={Announcements} />
     </Stack.Navigator>
   </NavigationContainer>
   );

@@ -7,18 +7,20 @@ import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/f
 
 const db = getFirestore();
 
-export default function HomeScreen({route, navigation}) {
+export default function Announcements({route, navigation}) {
     const { name, code } = route.params;
     const [message, setMessage] = useState([])
     const [sendMessage, setSendMessage] = useState("")
+    const [admin, setAdmin] = useState("")
    
 
     useEffect(() => {
       const unsub = onSnapshot(doc(db, "clubs", code), { includeMetadataChanges: true },  (doc) => {
-        if(doc.data().message != undefined)
+        if(doc.data().announcements != undefined)
         {
-          setMessage(doc.data().message.reverse());
+            setMessage(doc.data().announcements.reverse());
         }
+        setAdmin(doc.data().user[0])
       });
     }, []);
 
@@ -27,7 +29,7 @@ export default function HomeScreen({route, navigation}) {
         const ref = doc(db, "clubs", code);
         var today = new Date()
         await updateDoc(ref, {
-          message: arrayUnion(auth.currentUser?.email + " " + today.getDate() + "." + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + today.getHours() + ":" + today.getMinutes() + " " + params
+          announcements: arrayUnion(auth.currentUser?.email + " " + today.getDate() + "." + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + today.getHours() + ":" + today.getMinutes() + " " + params
           )
         });
       } catch (e) {
@@ -39,7 +41,7 @@ export default function HomeScreen({route, navigation}) {
     return (
       <View style={styles.homescreen}>
         
-        <View style={styles.banner}><Text style={styles.txt}>{name}</Text></View>
+        <View style={styles.banner}><Text style={styles.txt}>{name} Announcements</Text></View>
         <View  style={styles.chat}>
           <FlatList
               inverted
@@ -52,7 +54,7 @@ export default function HomeScreen({route, navigation}) {
 
         </View>
         
-        <View style= {styles.input}>
+        <View style= {[auth.currentUser?.email == admin ?  styles.input: styles.hide]}>
           <TextInput
             onChangeText={text => setSendMessage(text)}
             style={styles.btn}
@@ -116,5 +118,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     width: '10%'
+  },
+  hide:{
+      display: 'none'
   }
 });

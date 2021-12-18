@@ -20,7 +20,7 @@ export default function VoiceScreen({route, navigation}) {
       <View style={styles.container}>
         <View style={styles.flex1}>
           <TouchableOpacity style={styles.banner}>
-            <Text style={styles.txt}>Announcements</Text>
+            <Text onPress={() => navigation.navigate('Announcements', {name:name, code:code})} style={styles.txt}>Announcements</Text>
           </TouchableOpacity>
           
         </View>
@@ -31,7 +31,7 @@ export default function VoiceScreen({route, navigation}) {
              data={users}
              keyExtractor={({ item }, index) => index}
              renderItem={({ item }, index) => 
-              (<Text>{item}</Text>)
+              (<View style={{borderBottomWidth: 2, borderColor: 'red'}}><Text>{item}</Text></View>)
           }/>
         </View>
 
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   flex1:{
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'flex-end'
   },
   flex1row:{
     flex: 1,
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   flex3:{
-    flex: 3
+    flex: 3,
+    width: '100%'
   },
   tinyLogo:{
     width: 45,
