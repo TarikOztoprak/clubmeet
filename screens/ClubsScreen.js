@@ -82,9 +82,16 @@ export default function ClubsScreen({navigation}) {
             />
             <TouchableOpacity style={styles.create} 
               onPress={()=>{
-                CreateClub(cClub)
-                setCreateText('The Club was Created.')
-                setcClub("")
+                if(cClub.length > 2)
+                {
+                  CreateClub(cClub)
+                  setCreateText('The Club was Created.')
+                  setcClub("")
+                }
+                else{
+                  setCreateText('Club name is so short.')
+                }
+                
                 getData()
               }
               }>

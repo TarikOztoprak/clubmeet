@@ -2,22 +2,8 @@ import Logo from '../components/Logo'
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-// Import the functions you need from the SDKs you need
 import {auth} from '../firebase.js'
-// import { getFirestore } from "firebase/firestore"
-// import { collection,query, setDoc, addDoc, getDocs, doc, arrayUnion, updateDoc} from "firebase/firestore"; 
-// const db = getFirestore();
 
-// async function setDatabase() {
-//     try {
-//       await setDoc(doc(db, "users", auth.currentUser?.email), {
-//         name: auth.currentUser?.email,
-//         clubs: []
-//       });
-//     } catch (e) {
-//       console.error("Error adding document: ", e);
-//     }
-//   }
 
 
 function SignUpScreen({ navigation }) {
@@ -47,25 +33,31 @@ function SignUpScreen({ navigation }) {
           />
           <TouchableOpacity style = {styles.btn}
             onPress={() =>  {
-              createUserWithEmailAndPassword(auth, email, pass)
-              .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                // setDatabase();
-                setSignup('SignUp Succesfull')
-                
-                navigation.navigate('Login')
-              
-                // ...
-              })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setSignup(errorCode)
-                // ..
-              });
-            }}
-           
+              if(pass.length > 8)
+              {
+                  createUserWithEmailAndPassword(auth, email, pass)
+                  .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // setDatabase();
+                    setSignup('SignUp Succesfull')
+                    
+                    navigation.navigate('Login')
+                  
+                    // ...
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setSignup(errorCode)
+                    // ..
+                  });
+              }
+              else{
+                  setSignup('Password is so short.')
+              }
+            }
+          }
           ><Text style= {styles.txt}>SIGNUP</Text></TouchableOpacity>
         </View>
       </View>
