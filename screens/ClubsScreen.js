@@ -22,8 +22,7 @@ async function CreateClub(params) {
       name: params,
       code: kod,
       user: [auth.currentUser?.email],
-      messages: [],
-      announcemenets: []
+      messages: []
     });
   } catch (e) {
     console.error("Error adding document: ", e);

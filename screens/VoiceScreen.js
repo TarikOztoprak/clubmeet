@@ -19,8 +19,8 @@ export default function VoiceScreen({route, navigation}) {
       
       <View style={styles.container}>
         <View style={styles.flex1}>
-          <TouchableOpacity style={styles.banner}>
-            <Text onPress={() => navigation.navigate('Announcements', {name:name, code:code})} style={styles.txt}>Announcements</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Announcements', {name:name, code:code})} style={styles.banner}>
+            <Text style={styles.txt}>Announcements</Text>
           </TouchableOpacity>
           
         </View>
@@ -45,13 +45,13 @@ export default function VoiceScreen({route, navigation}) {
           </View>
 
           <View style={styles.flex1}>
-            <TouchableOpacity style={styles.mic}>
+            <TouchableOpacity style={[styles.mic, styles.open]}>
               <Image style={styles.tinyLogo} source={{uri: 'https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png'}}/>
             </TouchableOpacity>
           </View>
 
           <View style={styles.flex1}>
-            <TouchableOpacity style={styles.mic}>
+            <TouchableOpacity style={[styles.mic, styles.close]}>
               <Image style={styles.tinyLogo} source={{uri: 'https://www.freeiconspng.com/uploads/sound-off-music-mute-off-sound-speaker-volume-icon-16.png'}}/>
             </TouchableOpacity>
           </View>
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     width: '90%'
   },
   flex3:{
@@ -108,12 +109,11 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   tinyLogo:{
-    width: 45,
-    height: 45,
+    width: 35,
+    height: 35,
     resizeMode: 'stretch'
   },
   mic:{
-    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     width: 50,
@@ -122,7 +122,14 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: 'gray',
     borderWidth: 2
+  },
+  open:{
+    backgroundColor: 'green',
+  },
+  close:{
+    backgroundColor: 'red',
   }
+
 });
 
  
