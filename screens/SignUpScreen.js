@@ -74,7 +74,9 @@ function SignUpScreen({ navigation }) {
       backgroundColor: '#9BCCBA'
     },
     flex1: {
-      flex: 1
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     flex2: {
       flex: 2

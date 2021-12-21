@@ -169,10 +169,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     fontSize: 30,
+ 
+    // background color must be set
+    
+
   },
   txt: {
     fontSize: 30,
-    color: '#ffffff'
+    color: '#ffffff',
+    
   },
   row:{
     flexDirection: 'row',

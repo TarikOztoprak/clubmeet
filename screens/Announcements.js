@@ -88,7 +88,9 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff',
     borderWidth: 1,
     padding: 10,
-    width:'90%'
+    width:'90%',
+    backgroundColor: '#FFFFFF',
+  
   },
   banner: {
     flex: 1,

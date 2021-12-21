@@ -8,16 +8,16 @@ function BottomBar({name,code, navigation}) {
                 onPress={()=> navigation.navigate('Clubs')}
             >
                 <Text style = {styles.txt}>
-                    Clubs
+                📚
                 </Text>
             </TouchableOpacity>
             
             <TouchableOpacity
-            style={styles.btn}
+            style={[styles.btn, styles.border]}
             onPress={()=> navigation.navigate('Home', {name: name, code: code})}
             >
                 <Text style = {styles.txt}>
-                    Chat
+                💬
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -25,7 +25,7 @@ function BottomBar({name,code, navigation}) {
             onPress={()=> navigation.navigate('Voice', {name: name, code: code})}
             >
                 <Text style = {styles.txt}>
-                    Voice
+                🧍
                 </Text>
             </TouchableOpacity>
         </View>
@@ -45,11 +45,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#EF3939',
         alignItems: 'center',
         paddingTop: 10,
-        paddingBottom: 10
+        paddingBottom: 10,
+       
     },
     txt:
     {
         color: '#ffffff',
         fontSize: 26
+    },
+    border:{
+        borderRightWidth: 2,
+        borderLeftWidth: 2,
+        borderColor: 'silver'
     }
 })

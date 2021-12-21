@@ -27,8 +27,11 @@ export default function ChatItem(props) {
           <Text style={styles.txt}>
               {message}
           </Text>
+          <TouchableOpacity>
+            <Text style={{color: 'red'}}>Delete</Text>
+          </TouchableOpacity>
         </View>
-        
+     
    
     </View>
    
