@@ -1,11 +1,10 @@
 import Logo from '../components/Logo'
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TextInput,TouchableOpacity, ImageBackground} from 'react-native';
 
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase.js'
-
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('')
@@ -20,8 +19,7 @@ function LoginScreen({ navigation }) {
             setLogin('Login Succesfull')
            
             navigation.navigate('Clubs')
-          
-            
+
             // ...
           })
           .catch((error) => {
@@ -32,7 +30,7 @@ function LoginScreen({ navigation }) {
     }
 
     return (
-      <View style={styles.container}>
+      <ImageBackground source={require('../images/login.jpg')} style={styles.container}>
         <View style= {styles.flex1}>
           <Logo/>
         </View>
@@ -63,9 +61,7 @@ function LoginScreen({ navigation }) {
             <Text style= {styles.txtSign}>SignUp</Text>
             </TouchableOpacity>
         </View>
- 
-        
-        </View>     
+      </ImageBackground>     
     );
   }
 
@@ -96,7 +92,7 @@ function LoginScreen({ navigation }) {
       marginTop:10
     },
     btnSign: {
-      backgroundColor: '#9BCCBA',
+      backgroundColor: '#fff0',
       color: 'white',
       justifyContent: 'center',
       alignItems: 'center',

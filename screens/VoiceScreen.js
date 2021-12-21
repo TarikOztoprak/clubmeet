@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, ImageBackground} from 'react-native';
 import BottomBar from '../components/BottomBar';
 import { auth } from '../firebase';
 import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
@@ -10,10 +10,11 @@ const db = getFirestore();
 export default function VoiceScreen({route, navigation}) {
     const { name, code } = route.params;
     const [users, setUsers] = useState([]);
-  
+    const [admin, setAdmin] = useState([]);
     useEffect(() => {
       const unsub = onSnapshot(doc(db, "clubs", code), { includeMetadataChanges: true },  (doc) => {
         setUsers(doc.data().user);
+        setAdmin(doc.data().user[0])
       });
     }, []);
 
@@ -28,7 +29,7 @@ export default function VoiceScreen({route, navigation}) {
     
     return (
       
-      <View style={styles.container}>
+      <ImageBackground source={require('../images/clubs.jpg')} style={styles.container}>
         <View style={[styles.flex1, {justifyContent: 'flex-end'}]}>
           <TouchableOpacity onPress={() => navigation.navigate('Announcements', {name:name, code:code})} style={styles.banner}>
             <Text style={styles.txt}>📢Announcements📢</Text>
@@ -45,9 +46,11 @@ export default function VoiceScreen({route, navigation}) {
               (
               <View style={{borderBottomWidth: 2, borderColor: 'red', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', padding: 7}}>
                 <Text style = {[item == auth.currentUser?.email ? styles.green : styles.black]}>{item}</Text>
-                <TouchableOpacity style={{backgroundColor: '#9BCCBA', width: 30, height:30, justifyContent: 'center', alignItems: 'center', borderRadius: 50}}>
+                {auth.currentUser?.email == admin && item != admin ? (
+                <TouchableOpacity style={styles.deleteUser}>
                   <Text style={{color: 'red'}}>❌</Text>
-                  </TouchableOpacity>
+                </TouchableOpacity>
+                ) : <Text></Text>}
               </View>
               )
           }/>
@@ -60,7 +63,7 @@ export default function VoiceScreen({route, navigation}) {
         </View>
        
         <BottomBar name={name} code={code} styles={styles.input} navigation = {navigation}/>
-      </View>
+      </ImageBackground>
      
     );
 }
@@ -121,6 +124,14 @@ const styles = StyleSheet.create({
   },
   green:{
     color: 'green'
+  },
+  deleteUser:{
+    backgroundColor: '#9BCCBA',
+    width: 30,
+    height:30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50
   }
 
 });

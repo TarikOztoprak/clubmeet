@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, ImageBackground} from 'react-native';
 import Channel from '../components/Channel';
 import { auth } from '../firebase';
 import { getFirestore } from "firebase/firestore"
@@ -69,9 +69,10 @@ export default function ClubsScreen({navigation}) {
     }
 
     return (
-      <View style={styles.homescreen}>
+      <ImageBackground source={require('../images/clubs.jpg')} style={styles.homescreen}>
+        <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
+        
         <View style={styles.flex3}>
-          <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
 
           <Text>{createText}</Text>
           <View style= {styles.row}>
@@ -140,7 +141,7 @@ export default function ClubsScreen({navigation}) {
         />
         )}
         </View>
-      </View>
+      </ImageBackground>
      
     );
 }

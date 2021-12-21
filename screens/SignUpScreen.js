@@ -1,6 +1,6 @@
 import Logo from '../components/Logo'
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity, ImageBackground } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase.js'
 
@@ -12,7 +12,7 @@ function SignUpScreen({ navigation }) {
     const [signup, setSignup] = useState('')
   
     return (
-      <View style={styles.container}>
+      <ImageBackground source={require('../images/login.jpg')} style={styles.container}>
         <View style= {styles.flex1}>
           <Logo/>
         </View>
@@ -60,7 +60,7 @@ function SignUpScreen({ navigation }) {
           }
           ><Text style= {styles.txt}>SIGNUP</Text></TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
      
     );
   }
