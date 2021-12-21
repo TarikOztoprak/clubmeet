@@ -1,6 +1,22 @@
 import React, { Children } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ViewBase } from 'react-native';
 import { auth } from '../firebase';
+import { getFirestore, doc, arrayRemove, updateDoc} from "firebase/firestore"; 
+
+const db = getFirestore();
+
+async function DeleteMessage(params) {
+  // params[0] code params[1] message
+  try {
+    const ref = doc(db, "clubs", params[0]);
+    await updateDoc(ref, {
+      message: arrayRemove(params[1]),
+      announcements: arrayRemove(params[1])
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 export default function ChatItem(props) {
   let chat = props.message.split(" ");
@@ -27,9 +43,11 @@ export default function ChatItem(props) {
           <Text style={styles.txt}>
               {message}
           </Text>
-          <TouchableOpacity>
-            <Text style={{color: 'red'}}>Delete</Text>
-          </TouchableOpacity>
+          {user == auth.currentUser?.email ? (
+            <TouchableOpacity onPress={() => DeleteMessage([props.code, props.message])}>
+              <Text style={{color: 'red'}}>Delete</Text>
+            </TouchableOpacity>
+          ) : <></>}
         </View>
      
    

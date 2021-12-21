@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, ImageBackground} from 'react-native';
 import Channel from '../components/Channel';
 import { auth } from '../firebase';
-import { getFirestore } from "firebase/firestore"
+import { arrayRemove, getFirestore } from "firebase/firestore"
 import { collection,query, setDoc, getDocs, doc, arrayUnion, updateDoc} from "firebase/firestore"; 
 
 function createCode() {
@@ -39,6 +39,8 @@ async function joinClub(params) {
     console.error("Error adding document: ", e);
   }
 }
+
+
 
 export default function ClubsScreen({navigation}) {
     const [cClub, setcClub] = useState('');
@@ -169,11 +171,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderRadius: 10,
     alignItems: 'center',
-    fontSize: 30,
- 
+    fontSize: 30, 
     // background color must be set
-    
-
   },
   txt: {
     fontSize: 30,
@@ -207,5 +206,16 @@ const styles = StyleSheet.create({
   flex6:{
     flex: 6,
     width: '100%',
+  },
+  deleteClub:{
+    backgroundColor: '#9BCCBA',
+    width: 30,
+    height:30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    position: 'absolute',
+    right: 0,
+    top: 0
   }
 });

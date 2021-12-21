@@ -1,10 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ViewBase } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { getFirestore, doc, arrayRemove, updateDoc} from "firebase/firestore"; 
+import { auth } from '../firebase';
+const db = getFirestore();
+
+async function DeleteClub(params) {
+  try {
+    const ref = doc(db, "clubs", params);
+    await updateDoc(ref, {
+      user: arrayRemove(auth.currentUser?.email)
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 export default function Channel(props) {
   return (
    
     <TouchableOpacity onPress={() => props.navigation.navigate('Home', {name: props.clubname, code: props.clubcode})} style={styles.container}>
+
+        <TouchableOpacity onPress={() => DeleteClub(props.clubcode)} style={styles.deleteClub}>
+          <Text style={{color: 'red'}}>❌</Text>
+        </TouchableOpacity>
+
         <View style={styles.logoContent}>
           <View style={styles.logo}>
             <Text style={styles.logotxt}>
@@ -21,7 +40,7 @@ export default function Channel(props) {
             Club Code: {props.clubcode}
           </Text>
         </View>
-        
+
     </TouchableOpacity>
    
   );
@@ -71,6 +90,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 2
+  },
+  deleteClub:{
+    backgroundColor: '#9BCCBA',
+    width: 30,
+    height:30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    position: 'absolute',
+    right: 0,
+    top: 0
   }
    
   

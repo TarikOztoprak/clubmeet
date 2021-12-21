@@ -2,10 +2,22 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, ImageBackground} from 'react-native';
 import BottomBar from '../components/BottomBar';
 import { auth } from '../firebase';
-import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, onSnapshot, getFirestore, updateDoc, arrayRemove } from "firebase/firestore";
 import * as Clipboard from 'expo-clipboard';
 
 const db = getFirestore();
+
+async function DeleteUser(params) {
+  // params[0] code params[1] user
+  try {
+    const ref = doc(db, "clubs", params[0]);
+    await updateDoc(ref, {
+      user: arrayRemove(params[1])
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 export default function VoiceScreen({route, navigation}) {
     const { name, code } = route.params;
@@ -32,28 +44,30 @@ export default function VoiceScreen({route, navigation}) {
       <ImageBackground source={require('../images/clubs.jpg')} style={styles.container}>
         <View style={[styles.flex1, {justifyContent: 'flex-end'}]}>
           <TouchableOpacity onPress={() => navigation.navigate('Announcements', {name:name, code:code})} style={styles.banner}>
-            <Text style={styles.txt}>📢Announcements📢</Text>
+            <Text style={styles.txt}>📢 Announcements 📢</Text>
           </TouchableOpacity>
           
         </View>
 
         <View style={styles.flex5}>
           <Text style={styles.txt}>{name} Members</Text>
+         
           <FlatList style = {{backgroundColor: '#ddffff', width: '100%', borderRadius: 5}}
              data={users}
              keyExtractor={({ item }, index) => index}
              renderItem={({ item }, index) => 
               (
-              <View style={{borderBottomWidth: 2, borderColor: 'red', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', padding: 7}}>
+              <View style={styles.flatlistview}>
                 <Text style = {[item == auth.currentUser?.email ? styles.green : styles.black]}>{item}</Text>
                 {auth.currentUser?.email == admin && item != admin ? (
-                <TouchableOpacity style={styles.deleteUser}>
+                <TouchableOpacity onPress={() => DeleteUser([code, item])} style={styles.deleteUser}>
                   <Text style={{color: 'red'}}>❌</Text>
                 </TouchableOpacity>
                 ) : <Text></Text>}
               </View>
               )
           }/>
+        
         </View>
 
         <View style={styles.flex1}>
@@ -132,6 +146,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50
+  },
+  flatlistview:{
+    borderBottomWidth: 2,
+    borderColor: 'red',
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems: 'center',
+    padding: 7
   }
 
 });

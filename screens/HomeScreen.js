@@ -46,7 +46,7 @@ export default function HomeScreen({route, navigation}) {
               data={message}
               keyExtractor={({ item }, index) => index}
               renderItem={({ item }, index) => 
-                  (<ChatItem message = {item}/>)
+                  (<ChatItem message = {item} code= {code}/>)
               }
           />
 
