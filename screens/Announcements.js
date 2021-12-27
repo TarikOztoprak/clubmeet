@@ -4,7 +4,6 @@ import BottomBar from '../components/BottomBar';
 import ChatItem from '../components/ChatItem';
 import { auth } from '../firebase';
 import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
-import PushNotification from '../Notification'
 
 const db = getFirestore();
 
@@ -52,7 +51,6 @@ export default function Announcements({route, navigation}) {
                   (<ChatItem message = {item} code= {code}/>)
               }
           />
-        <PushNotification></PushNotification>
         </View>
         
         <View style= {[auth.currentUser?.email == admin ?  styles.input: styles.hide]}>

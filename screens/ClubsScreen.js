@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, ImageBackground} from 'react-native';
 import Channel from '../components/Channel';
 import { auth } from '../firebase';
-import { arrayRemove, getFirestore } from "firebase/firestore"
+import { getFirestore } from "firebase/firestore"
 import { collection,query, setDoc, getDocs, doc, arrayUnion, updateDoc} from "firebase/firestore"; 
 
 function createCode() {
@@ -70,19 +70,29 @@ export default function ClubsScreen({navigation}) {
       setLoading(false)
     }
 
+    const handleSingOut = () => {
+      auth.signOut()
+          .then(() => {
+              navigation.replace("Login")
+          })
+          .catch(error => alert(error.message))
+    }
+
     return (
       <ImageBackground source={require('../images/clubs.jpg')} style={styles.homescreen}>
         <View style={styles.banner}><Text style={styles.txt}>Clubs</Text></View>
         
-        <View style={styles.flex3}>
+        <View style={styles.flex2}>
 
           <Text>{createText}</Text>
+          
           <View style= {styles.row}>
             <TextInput id='createInput' style= {styles.input}
                 placeholder="Club Name"
                 value= {cClub}
                 onChangeText={text => setcClub(text)}
             />
+           
             <TouchableOpacity style={styles.create} 
               onPress={()=>{
                 if(cClub.length > 2)
@@ -108,7 +118,7 @@ export default function ClubsScreen({navigation}) {
                 value= {jClub}
                 onChangeText={text => {
                   setjClub(text)
-                }                
+                  }                
                 }
             />
             <TouchableOpacity style={styles.create}
@@ -119,7 +129,6 @@ export default function ClubsScreen({navigation}) {
             }
             ><Text style={styles.txt}>Join</Text></TouchableOpacity>
           </View>
-
         </View>
         
         <View style={styles.flex6}>
@@ -143,6 +152,12 @@ export default function ClubsScreen({navigation}) {
         />
         )}
         </View>
+        
+        <Text>{auth.currentUser?.email}</Text>
+        <TouchableOpacity onPress={handleSingOut}>
+              <Text style={styles.txtred}>SIGN OUT</Text>  
+        </TouchableOpacity>
+      
       </ImageBackground>
      
     );
@@ -198,8 +213,8 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
   },
-  flex3:{
-    flex:3,
+  flex2:{
+    flex:2,
     alignItems: 'center',
     width: '100%'
   },
@@ -217,5 +232,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0
+  },
+  txtred:{
+    fontSize: 30,
+    color: '#ff0000',
   }
 });

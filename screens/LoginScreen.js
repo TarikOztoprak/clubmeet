@@ -18,7 +18,7 @@ function LoginScreen({ navigation }) {
             const user = userCredential.user;
             setLogin('Login Succesfull')
            
-            navigation.navigate('Clubs')
+            navigation.replace('Content')
 
             // ...
           })

@@ -19,22 +19,32 @@ const Stack = createNativeStackNavigator();
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
+function Content(){
+  return(
+    <Stack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}>  
+        <Stack.Screen name="Clubs" component={ClubsScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Voice" component={VoiceScreen} />
+        <Stack.Screen name="Announcements" component={Announcements} />
+    </Stack.Navigator>
+  )
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator
-    screenOptions={{
-      headerShown: false
-    }}>
-      <Stack.Screen name="Login" component={LoginScreen}/>
-      <Stack.Screen name="Sign Up" component={SignUpScreen} />
-      <Stack.Screen name="Clubs" component={ClubsScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Voice" component={VoiceScreen} />
-      <Stack.Screen name="Announcements" component={Announcements} />
-    </Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="Login" component={LoginScreen}/>
+        <Stack.Screen name="Sign Up" component={SignUpScreen} />
+        <Stack.Screen name="Content" component={Content} />
+      
+      </Stack.Navigator>
   </NavigationContainer>
   );
 }

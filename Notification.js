@@ -64,8 +64,8 @@ async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Original Title',
-    body: 'And here is the body!',
+    title: 'Kitap Kulübü',
+    body: '1 Yeni Mesajınız Var.',
     data: { someData: 'goes here' },
   };
 
