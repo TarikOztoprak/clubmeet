@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -11,7 +11,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function PushNotification() {
+export default async function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -36,36 +36,36 @@ export default function PushNotification() {
     };
   }, []);
 
+ 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}>
-      <Text>Your expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Title: {notification && notification.request.content.title} </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-      </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-    </View>
-  );
+    <TouchableOpacity style={styles.send}
+      onPress={async () => {
+        sendPushNotification(expoPushToken)
+        }
+      }
+    >
+      <Text style={styles.txt}>↑</Text>
+    </TouchableOpacity>
+  )
 }
+
+const styles = StyleSheet.create({
+  send:{
+    backgroundColor: '#9BCCBA',
+    justifyContent:'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    width: '10%'
+  },
+});
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
 async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Kitap Kulübü',
-    body: '1 Yeni Mesajınız Var.',
+    title: 'Original Title',
+    body: 'And here is the body!',
     data: { someData: 'goes here' },
   };
 
