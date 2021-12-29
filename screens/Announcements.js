@@ -1,11 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import BottomBar from '../components/BottomBar';
 import ChatItem from '../components/ChatItem';
 import { auth } from '../firebase';
 import { doc, onSnapshot, getFirestore, updateDoc, arrayUnion } from "firebase/firestore";
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
 
 const db = getFirestore();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Announcements({route, navigation}) {
     const { name, code } = route.params;
@@ -13,6 +23,11 @@ export default function Announcements({route, navigation}) {
     const [sendMessage, setSendMessage] = useState("")
     const [admin, setAdmin] = useState("")
    
+    //notification
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
 
     useEffect(() => {
       const unsub = onSnapshot(doc(db, "clubs", code), { includeMetadataChanges: true },  (doc) => {
@@ -22,6 +37,26 @@ export default function Announcements({route, navigation}) {
         }
         setAdmin(doc.data().user[0])
       });
+
+    }, []);
+
+    useEffect(() => {
+      registerForPushNotificationsAsync(code).then(token => setExpoPushToken(token));
+  
+      // This listener is fired whenever a notification is received while the app is foregrounded
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+  
+      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response);
+      });
+  
+      return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+      };
     }, []);
 
     async function createMessage(params) {
@@ -36,11 +71,10 @@ export default function Announcements({route, navigation}) {
         console.error("Error adding document: ", e);
       }
     }
-    
 
     return (
       <View style={styles.homescreen}>
-        
+      
         <View style={styles.banner}><Text style={styles.txt}>{name} Announcements</Text></View>
         <View  style={styles.chat}>
           <FlatList
@@ -60,20 +94,74 @@ export default function Announcements({route, navigation}) {
             placeholder='Message'
             value={sendMessage}
           />
+        
           <TouchableOpacity style={styles.send}
-            onPress={() => {
-              createMessage(sendMessage)
-              setSendMessage("")
+            onPress={async() => {
+                createMessage(sendMessage)
+                await sendPushNotification(expoPushToken, name, sendMessage, code)
+                setSendMessage("")
               }
             }
           >
             <Text style={styles.txt}>↑</Text>
           </TouchableOpacity>
         </View>
- 
+      
         <BottomBar name={name} code={code} styles={styles.input} navigation = {navigation}/>
       </View>
     );
+}
+
+async function sendPushNotification(expoPushToken, name, sendMessage, code) {
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: name,
+    body: sendMessage,
+    channelId: code,
+    data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+async function registerForPushNotificationsAsync(code) {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync(code, {
+      name: code,
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
 }
 
 const styles = StyleSheet.create({

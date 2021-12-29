@@ -25,7 +25,7 @@ function BottomBar({name,code, navigation}) {
             onPress={()=> navigation.navigate('Voice', {name: name, code: code})}
             >
                 <Text style = {styles.txt}>
-                🧍
+                📖
                 </Text>
             </TouchableOpacity>
         </View>
