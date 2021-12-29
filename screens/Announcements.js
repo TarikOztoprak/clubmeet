@@ -29,7 +29,7 @@ export default function Announcements({route, navigation}) {
         const ref = doc(db, "clubs", code);
         var today = new Date()
         await updateDoc(ref, {
-          announcements: arrayUnion(auth.currentUser?.email + " " + today.getDate() + "." + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + today.getHours() + ":" + today.getMinutes() + " " + params
+          announcements: arrayUnion(auth.currentUser?.email + " " + (today.getDate()<10?'0':'')+ today.getDate() + "." + (today.getMonth()<10?'0':'') + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + (today.getHours()<10?'0':'')+ today.getHours() + ":" + (today.getMinutes()<10?'0':'')+ today.getMinutes() + " " + params
           )
         });
       } catch (e) {
@@ -87,9 +87,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff',
     borderWidth: 1,
     padding: 10,
-    width:'90%',
-    backgroundColor: '#FFFFFF',
-  
+    width:'90%'
   },
   banner: {
     flex: 1,

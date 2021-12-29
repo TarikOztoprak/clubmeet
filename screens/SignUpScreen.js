@@ -79,7 +79,8 @@ function SignUpScreen({ navigation }) {
       alignItems: 'center'
     },
     flex2: {
-      flex: 2
+      flex: 2,
+      width: '80%'
     },
     btn: {
       backgroundColor: '#EF3939',
@@ -98,8 +99,7 @@ function SignUpScreen({ navigation }) {
       lineHeight:30,
       paddingRight: 5,
       marginTop:10,
-      paddingLeft: 10,
-      width: 300
+      paddingLeft: 10
     },
     txt: {
       fontSize: 30,

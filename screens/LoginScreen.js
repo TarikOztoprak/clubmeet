@@ -79,7 +79,8 @@ function LoginScreen({ navigation }) {
       alignItems: 'center'
     },
     flex2: {
-      flex: 2
+      flex: 2,
+      width: '80%'
     },
     btn: {
       backgroundColor: '#EF3939',
@@ -109,8 +110,6 @@ function LoginScreen({ navigation }) {
       paddingLeft: 10,
       paddingRight: 5,
       fontSize: 30,
-      width: 300,
-      maxWidth: 300
      
     },
     txt: {
