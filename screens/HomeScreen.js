@@ -27,7 +27,7 @@ export default function HomeScreen({route, navigation}) {
         const ref = doc(db, "clubs", code);
         var today = new Date()
         await updateDoc(ref, {
-          message: arrayUnion(auth.currentUser?.email + " " + (today.getDate()<10?'0':'')+ today.getDate() + "." + (today.getMonth()<10?'0':'') + today.getMonth() + "." +Number(today.getYear() - 100)+ "/" + (today.getHours()<10?'0':'')+ today.getHours() + ":" + (today.getMinutes()<10?'0':'')+ today.getMinutes() + " " + params
+          message: arrayUnion(auth.currentUser?.email + " " + (today.getDate()<10?'0':'')+ today.getDate() + "." + (today.getMonth()+ 1<10?'0':'') + Number(today.getMonth() + 1) + "." +Number(today.getYear() - 100)+ "/" + (today.getHours()<10?'0':'')+ today.getHours() + ":" + (today.getMinutes()<10?'0':'')+ today.getMinutes() + " " + params
           )
         });
       } catch (e) {

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "101108413205",
+    "firebase_url": "https://clubmeet-8dbdd-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "clubmeet-8dbdd",
+    "storage_bucket": "clubmeet-8dbdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101108413205:android:d7f4feadc8dac46998af1c",
+        "android_client_info": {
+          "package_name": "com.clubmeet.clubmeet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101108413205-mtdd2827hqcp4tqfsfgapbgg7glbve6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5DXYRG_SEOOVe9JhRdo4tWd8CFskoVmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101108413205-mtdd2827hqcp4tqfsfgapbgg7glbve6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
