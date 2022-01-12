@@ -6,8 +6,9 @@
 
 ## Ekran Görüntüleri
 
-![login](readmeAssets/1.jpg)
-![clubs](readmeAssets/2.jpg)
-![chat](readmeAssets/3.jpg)
-![members](readmeAssets/4.jpg)
-![announcements](readmeAssets/5.jpg)
+<img src="readmeAssets/1.jpg" alt="login" width="250"/>
+<img src="readmeAssets/2.jpg" alt="clubs" width="250"/>
+<img src="readmeAssets/3.jpg" alt="chat" width="250"/>
+<img src="readmeAssets/4.jpg" alt="members" width="250"/>
+<img src="readmeAssets/5.jpg" alt="announcements" width="250"/>
+
