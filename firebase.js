@@ -6,14 +6,14 @@ import { getAuth} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDQ3V4FbjEAxOD1_JXl1Zl9o6xZ97vV4ag",
-    authDomain: "clubmeet-8dbdd.firebaseapp.com",
-    databaseURL: "https://clubmeet-8dbdd-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "clubmeet-8dbdd",
-    storageBucket: "clubmeet-8dbdd.appspot.com",
-    messagingSenderId: "101108413205",
-    appId: "1:101108413205:web:a8a12893c488916b98af1c",
-    measurementId: "G-1X821L19QE"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
 };
 
 
